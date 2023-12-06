@@ -1,0 +1,3 @@
+$OUPath = 'OU=MultiFactorOnlyUsers,DC=NFGPROD,DC=org'
+$ExportPath = 'c:\MFAUsers.csv'
+Get-ADUser -Filter * -SearchBase $OUpath -properties cn,userPrincipalName,logonCount,lastLogonTimestamp,pwdLastSet,telephoneNumber,mail,description | Select-object cn,userPrincipalName,logonCount,@{Name=”LastLogon”;Expression={[DateTime]::FromFileTime($_.lastLogonTimestamp)}},@{Name=”pwdLastSet”;Expression={[DateTime]::FromFileTime($_.pwdLastSet)}},telephoneNumber,mail,description | Export-csv -NoType $ExportPath

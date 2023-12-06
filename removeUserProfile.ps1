@@ -1,0 +1,1 @@
+Get-WMIObject -class Win32_UserProfile | Where-object {(!$.Special) -and 
